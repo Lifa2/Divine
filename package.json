@@ -1,7 +1,6 @@
 {
   "name": "divineform",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -14,5 +13,16 @@
     "express": "^5.1.0",
     "mysql": "^2.18.1",
     "dotenv": "^16.3.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lifa2/DivineForm.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Lifa2/DivineForm/issues"
+  },
+  "homepage": "https://github.com/Lifa2/DivineForm#readme",
+  "description": ""
 }
