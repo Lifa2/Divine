@@ -1,10 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('./db');  // your MySQL connection
+const mysql = require('mysql');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+// Setup MySQL connection using Heroku's ClearDB URL
+const db = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
+
+db.connect(err => {
+  if (err) {
+    console.error('MySQL connection error:', err);
+  } else {
+    console.log('Connected to MySQL database');
+  }
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,32 +29,36 @@ app.get('/', (req, res) => {
 // Handle form submission
 app.post('/submit-form', (req, res) => {
   const {
-    date,           // from form (use as date_submitted)
+    date,
     name,
     surname,
     address,
-    contact,        // this corresponds to contact_number
+    contact,
     gender,
     ageGroup,
-    membership,     // membership_interest
-    visit,          // home_visit
+    membership,
+    visit,
     talkToBishop
   } = req.body;
 
-  // Map to the correct DB column variable names
-  const dateSubmitted = date;
-  const contactNumber = contact;
-  const age_group = ageGroup;
-  const membershipInterest = membership;
-  const homeVisit = visit;
-
   const sql = `
-    INSERT INTO divine_form.members
+    INSERT INTO members
     (date_submitted, name, surname, address, contact_number, gender, age_group, membership_interest, home_visit, talk_to_bishop)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const values = [dateSubmitted, name, surname, address, contactNumber, gender, age_group, membershipInterest, homeVisit, talkToBishop];
+  const values = [
+    date,
+    name,
+    surname,
+    address,
+    contact,
+    gender,
+    ageGroup,
+    membership,
+    visit,
+    talkToBishop
+  ];
 
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -55,5 +70,5 @@ app.post('/submit-form', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

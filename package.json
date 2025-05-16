@@ -3,26 +3,10 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "body-parser": "^2.2.0",
-    "express": "^5.1.0",
-    "mysql": "^2.18.1",
-    "dotenv": "^16.3.1"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Lifa2/DivineForm.git"
-  },
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/Lifa2/DivineForm/issues"
-  },
-  "homepage": "https://github.com/Lifa2/DivineForm#readme",
-  "description": ""
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
 }
