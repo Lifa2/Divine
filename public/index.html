@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DivineForm Registration</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <img src="images/9dfbec40-deaf-4e50-a744-36b87eb9b291.jpg" alt="DivineForm Logo" class="logo" />
+
+    <div class="form-card">
+      <h1>DivineForm Registration</h1>
+      <form id="divineForm" method="POST" action="/submit-form">
+        <label>Date:
+          <input type="date" name="date" required />
+        </label>
+
+        <label>Name:
+          <input type="text" name="name" required />
+        </label>
+
+        <label>Surname:
+          <input type="text" name="surname" required />
+        </label>
+
+        <label>Address:
+          <input type="text" name="address" required />
+        </label>
+
+        <label>Contact Number:
+          <input type="tel" name="contact" required pattern="[0-9]{10,15}" />
+        </label>
+
+        <label>Gender:
+          <select name="gender" required>
+            <option value="" disabled selected>Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+        <label>Age Group:
+          <select name="ageGroup" required>
+            <option value="" disabled selected>Select age group</option>
+            <option value="Under 18">Under 18</option>
+            <option value="18-30">18-30</option>
+            <option value="31-50">31-50</option>
+            <option value="Over 50">Over 50</option>
+          </select>
+        </label>
+
+        <label>Would you like to be a member of this church?
+          <select name="membership" required>
+            <option value="" disabled selected>Select option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </label>
+
+        <label>Would you like us to visit you at home?
+          <select name="visit" required>
+            <option value="" disabled selected>Select option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </label>
+
+        <label>Would you like to talk to the bishop?
+          <select name="talkToBishop" required>
+            <option value="" disabled selected>Select option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </label>
+
+        <button type="submit">Submit</button>
+      </form>
+      <div id="message"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

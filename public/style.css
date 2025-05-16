@@ -1,0 +1,143 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #4b0082, #ffd700);
+  background-size: 400% 400%;
+  animation: gradientFlow 20s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  width: 100%;
+  padding: 20px;
+  animation: fadeIn 2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-card {
+  max-width: 550px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 35px 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.5s ease;
+}
+
+.form-card:hover {
+  transform: translateY(-8px);
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 0 auto 20px auto;
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+}
+
+h1 {
+  font-size: 30px;
+  color: #ffffff;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+h3 {
+  text-align: left;
+  font-size: 18px;
+  color: #ffd700;
+  margin: 20px 0 10px;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin: 12px 0 5px;
+  color: #f5f5f5;
+  font-weight: 600;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+form input::placeholder {
+  color: #ccc;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #ffd700;
+  background-color: rgba(255, 255, 255, 0.15);
+  outline: none;
+  transform: scale(1.02);
+}
+
+form button {
+  background: linear-gradient(to right, #ffd700, #ffae00);
+  color: #4b0082;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background: linear-gradient(to right, #fff066, #ffc107);
+  transform: translateY(-2px) scale(1.03);
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #ffffff;
+}
