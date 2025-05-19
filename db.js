@@ -1,18 +1,23 @@
+require('dotenv').config();
 const mysql = require('mysql2');
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '40316815',
-  database: 'divine_form'
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
+  ssl: {
+    rejectUnauthorized: false, // set false to avoid cert errors
+  },
 });
 
-db.connect((err) => {
+connection.connect((err) => {
   if (err) {
     console.error('❌ Database connection failed:', err);
-    return;
+  } else {
+    console.log('✅ Database connected!');
   }
-  console.log('✅ Connected to MySQL database!');
 });
 
-module.exports = db;
+module.exports = connection;

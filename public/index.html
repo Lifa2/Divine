@@ -12,7 +12,7 @@
 
     <div class="form-card">
       <h1>DivineForm Registration</h1>
-      <form id="divineForm">
+      <form id="divineForm" method="POST" action="/submit">
         <label>Date:
           <input type="date" name="date" required />
         </label>
@@ -30,7 +30,7 @@
         </label>
 
         <label>Contact Number:
-          <input type="tel" name="contact" required pattern="[0-9]{10,15}" />
+          <input type="tel" name="contact" required pattern="[0-9]{10,15}" title="Enter a valid contact number" />
         </label>
 
         <label>Gender:
@@ -68,20 +68,41 @@
           </select>
         </label>
 
-        <label>Would you like to talk to the bishop?
-          <select name="talkToBishop" required>
-            <option value="" disabled selected>Select option</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
+       
+          <label for="speak">Would you like to speak to Bishop?</label>
+<select name="speak" id="speak" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select>
+
         </label>
 
         <button type="submit">Submit</button>
       </form>
       <div id="message"></div>
+      <script>
+  document.getElementById('divineForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent normal form submission
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch('/submit', {
+      method: 'POST',
+      body: new URLSearchParams(formData)
+    })
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('message').innerText = data;
+      form.reset(); // Optional: Clear the form
+    })
+    .catch(error => {
+      document.getElementById('message').innerText = 'Error: ' + error.message;
+    });
+  });
+</script>
+
     </div>
   </div>
-
-  <script src="script.js"></script>
 </body>
 </html>

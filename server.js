@@ -1,54 +1,67 @@
+require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('./db');
+const connection = require('./db');
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// Middleware to parse form data
+app.use(express.urlencoded({ extended: false }));
 
-// Serve static files from the "public" folder
+// Serve static files (CSS, JS, images)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Route to load the main form page
+// Serve index.html at root
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Handle form submissions
-app.post('/submit-form', (req, res) => {
+// Handle form submission
+app.post('/submit', (req, res) => {
   const {
-    date, name, surname, address, contact,
-    gender, ageGroup, membership, visit, talkToBishop
+    date,
+    name,
+    surname,
+    address,
+    contact,
+    gender,
+    ageGroup,
+    membership,
+    visit,
+    talkToBishop,
+    speak // ✅ Added this field to match the HTML
   } = req.body;
 
-  const sql = `
-    INSERT INTO registrations 
-    (date, name, surname, address, contact, gender, ageGroup, membership, visit, talkToBishop)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  const sql = `INSERT INTO registrations 
+    (date, name, surname, number, address, contact, gender, ageGroup, membership, speak, visit, talkToBishop)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   const values = [
-    date, name, surname, address, contact,
-    gender, ageGroup, membership, visit, talkToBishop
+    date,
+    name,
+    surname,
+    contact,       // number
+    address,
+    contact,
+    gender,
+    ageGroup,
+    membership,
+    speak,
+    visit,
+    talkToBishop
   ];
 
-  db.query(sql, values, (err, result) => {
+  connection.query(sql, values, (err, result) => {
     if (err) {
-      console.error('❌ Error inserting data:', err);
-      return res.status(500).send('Something went wrong.');
+      console.error('Insert error:', err);
+      return res.status(500).send('Database insert failed');
     }
-    console.log('✅ New registration saved!');
-    res.status(200).send('Registration successful!');
+    res.send('Registration successful!');
   });
 });
 
-
-
 // Start the server
-app.listen(port, () => {
-  console.log(`🚀 Server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
