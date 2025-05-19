@@ -1,19 +1,18 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
-// Replace these values with your MySQL credentials and DB name
-const connection = mysql.createConnection({
+const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '40316815',
   database: 'divine_form'
 });
 
-connection.connect((err) => {
+db.connect((err) => {
   if (err) {
-    console.error('Error connecting to MySQL database:', err);
+    console.error('❌ Database connection failed:', err);
     return;
   }
-  console.log('Connected to MySQL database');
+  console.log('✅ Connected to MySQL database!');
 });
 
-module.exports = connection;
+module.exports = db;

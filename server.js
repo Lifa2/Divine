@@ -1,59 +1,54 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('./db');  // your MySQL connection
+const db = require('./db');
 
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
+// Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Serve static files from the "public" folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve the form page on homepage
+// Route to load the main form page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Handle form submission
+// Handle form submissions
 app.post('/submit-form', (req, res) => {
   const {
-    date,           // from form (use as date_submitted)
-    name,
-    surname,
-    address,
-    contact,        // this corresponds to contact_number
-    gender,
-    ageGroup,
-    membership,     // membership_interest
-    visit,          // home_visit
-    talkToBishop
+    date, name, surname, address, contact,
+    gender, ageGroup, membership, visit, talkToBishop
   } = req.body;
 
-  // Map to the correct DB column variable names
-  const dateSubmitted = date;
-  const contactNumber = contact;
-  const age_group = ageGroup;
-  const membershipInterest = membership;
-  const homeVisit = visit;
-
   const sql = `
-    INSERT INTO divine_form.members
-    (date_submitted, name, surname, address, contact_number, gender, age_group, membership_interest, home_visit, talk_to_bishop)
+    INSERT INTO registrations 
+    (date, name, surname, address, contact, gender, ageGroup, membership, visit, talkToBishop)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const values = [dateSubmitted, name, surname, address, contactNumber, gender, age_group, membershipInterest, homeVisit, talkToBishop];
+  const values = [
+    date, name, surname, address, contact,
+    gender, ageGroup, membership, visit, talkToBishop
+  ];
 
   db.query(sql, values, (err, result) => {
     if (err) {
-      console.error('Error inserting data:', err);
-      return res.status(500).send('Database error');
+      console.error('❌ Error inserting data:', err);
+      return res.status(500).send('Something went wrong.');
     }
-    res.send('Form submitted successfully!');
+    console.log('✅ New registration saved!');
+    res.status(200).send('Registration successful!');
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+
+
+// Start the server
+app.listen(port, () => {
+  console.log(`🚀 Server running at http://localhost:${port}`);
 });
