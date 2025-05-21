@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DLRC Membership Form</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+  <style>
+    /* Reset and Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4b0082, #ffd700);
+      background-size: 400% 400%;
+      animation: gradientFlow 20s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 35px 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 850px;
+      width: 100%;
+      animation: fadeIn 2s ease-out;
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      animation: pulse 3s infinite;
+      display: block;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: white;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px black;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      color: white;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 15px;
+      margin-top: 5px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #ccc;
+    }
+
+    .checkbox-group, .radio-group {
+      margin-top: 10px;
+      color: white;
+    }
+
+    .checkbox-group label,
+    .radio-group label {
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    .children-section div {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .children-section input[type="text"],
+    .children-section input[type="date"] {
+      flex: 1;
+    }
+
+    form button {
+      background: linear-gradient(to right, #ffd700, #ffae00);
+      color: #4b0082;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #360065;
+      color: white;
+      box-shadow: 0 8px 25px rgba(54, 0, 101, 0.9);
+    }
+
+    .signature-section {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .signature-section label {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .signature-section input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 15px;
+      margin-top: 5px;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 30px;
+      font-weight: bold;
+      color: #ffd700;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-card" role="main" aria-label="DLRC Membership Form">
+    <img src="images/9dfbec40-deaf-4e50-a744-36b87eb9b291.jpg" alt="DLRC Logo" class="logo" />
+    <h1>Divine Life Restoration Centre</h1>
+    <h2>DLRC Welcomes You!</h2>
+    <h2>Membership Form</h2>
+
+    <form>
+      <label for="full_name">Name & Surname:</label>
+      <input type="text" id="full_name" name="full_name" required placeholder="Enter your full name" />
+
+      <label for="contact">Contact Number/s:</label>
+      <input type="text" id="contact" name="contact" placeholder="Enter your contact number(s)" />
+
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" rows="2" placeholder="Enter your address..."></textarea>
+
+      <label>Status:</label>
+      <div class="checkbox-group" role="group" aria-label="Marital Status">
+        <label><input type="checkbox" name="status" value="Single" /> Single</label>
+        <label><input type="checkbox" name="status" value="Married" /> Married</label>
+        <label><input type="checkbox" name="status" value="Divorced" /> Divorced</label>
+        <label><input type="checkbox" name="status" value="Widow/er" /> Widow/er</label>
+      </div>
+
+      <label>Gender:</label>
+      <div class="radio-group" role="radiogroup" aria-label="Gender">
+        <label><input type="radio" name="gender" value="Male" /> Male</label>
+        <label><input type="radio" name="gender" value="Female" /> Female</label>
+      </div>
+
+      <label for="age_group">Age Group:</label>
+      <select id="age_group" name="age_group">
+        <option value="">Select</option>
+        <option value="14-19">14 - 19</option>
+        <option value="20-29">20 - 29</option>
+        <option value="30-39">30 - 39</option>
+        <option value="40-49">40 - 49</option>
+        <option value="50-59">50 - 59</option>
+        <option value="60+">60 - Older</option>
+      </select>
+
+      <label for="birthday">Birthday:</label>
+      <input type="date" id="birthday" name="birthday" />
+
+      <label for="occupation">Occupation:</label>
+      <input type="text" id="occupation" name="occupation" placeholder="Enter your occupation" />
+
+      <label>Have you accepted Jesus Christ as your saviour?</label>
+      <div class="radio-group" role="radiogroup" aria-label="Accepted Jesus Christ as saviour">
+        <label><input type="radio" name="accepted_jesus" value="Yes" /> YES</label>
+        <label><input type="radio" name="accepted_jesus" value="No" /> NO</label>
+      </div>
+
+      <label>Have you been water baptised?</label>
+      <div class="radio-group" role="radiogroup" aria-label="Water baptism status">
+        <label><input type="radio" name="baptised" value="Yes" /> YES</label>
+        <label><input type="radio" name="baptised" value="No" /> NO</label>
+      </div>
+
+      <label for="start_attending">When did you start regularly attending DLRC?</label>
+      <input type="text" id="start_attending" name="start_attending" placeholder="Month and year, e.g., January 2023" />
+
+      <label for="hobbies">What are your interests/skills/hobbies?</label>
+      <textarea id="hobbies" name="hobbies" rows="2" placeholder="Describe your interests or skills..."></textarea>
+
+      <label for="gifts">What is your spiritual gift/s?</label>
+      <textarea id="gifts" name="gifts" rows="2" placeholder="Describe your spiritual gifts..."></textarea>
+
+      <label for="role">Which role would you like to play in the church?</label>
+      <textarea id="role" name="role" rows="2" placeholder="Describe the role you want to play..."></textarea>
+
+      <label>Your children under the age of 18 attending DLRC:</label>
+      <div class="children-section">
+        <div>
+          <input type="text" name="child1" placeholder="Child 1 Name" />
+          <input type="date" name="dob1" placeholder="Date of Birth" />
+        </div>
+        <div>
+          <input type="text" name="child2" placeholder="Child 2 Name" />
+          <input type="date" name="dob2" placeholder="Date of Birth" />
+        </div>
+        <div>
+          <input type="text" name="child3" placeholder="Child 3 Name" />
+          <input type="date" name="dob3" placeholder="Date of Birth" />
+        </div>
+        <div>
+          <input type="text" name="child4" placeholder="Child 4 Name" />
+          <input type="date" name="dob4" placeholder="Date of Birth" />
+        </div>
+      </div>
+
+      <label style="margin-top: 20px;">
+        I hereby apply for membership at Divine Life Restoration Centre and declare that I will attend services regularly, grow in the grace and knowledge of Jesus Christ, and support the church and ministry in all ways I can.
+      </label>
+
+      <div class="signature-section">
+        <label for="date">Date:
+          <input type="date" id="date" name="date" />
+        </label>
+        <label for="signature">Signature:
+          <input type="text" id="signature" name="signature" placeholder="Type your full name" />
+        </label>
+      </div>
+
+      <button type="submit">Submit Form</button>
+
+      <div class="footer-text" aria-live="polite" aria-atomic="true">
+        We welcome you to the Divine Family. God Bless You.<br />
+        <strong>Bishop C.A. & Lady Bishop N. Mngxaso</strong>
+      </div>
+    </form>
+  </div>
+<script>
+  const form = document.querySelector('form');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent page reload
+
+    // Collect form data
+    const formData = new FormData(form);
+
+    // Convert FormData to a plain object
+    const data = {};
+    formData.forEach((value, key) => {
+      // For checkboxes with same name (status), combine values into array
+      if(key === 'status') {
+        if(!data[key]) data[key] = [];
+        data[key].push(value);
+      } else {
+        data[key] = value;
+      }
+    });
+
+    try {
+      const response = await fetch('/submit-membership', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if(response.ok) {
+        alert('Thank you for registering your membership!');
+
+        // Optionally reset the form
+        form.reset();
+      } else {
+        alert('Failed to submit the form. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while submitting the form.');
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -6,62 +6,105 @@ const connection = require('./db');
 const app = express();
 const PORT = 3000;
 
-// Middleware to parse form data
 app.use(express.urlencoded({ extended: false }));
-
-// Serve static files (CSS, JS, images)
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve index.html at root
+// Serve HTML pages
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Handle form submission
-app.post('/submit', (req, res) => {
-  const {
-    date,
-    name,
-    surname,
-    address,
-    contact,
-    gender,
-    ageGroup,
-    membership,
-    visit,
-    talkToBishop,
-    speak // ✅ Added this field to match the HTML
-  } = req.body;
+app.get('/membership', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'membership.html'));
+});
 
-  const sql = `INSERT INTO registrations 
-    (date, name, surname, number, address, contact, gender, ageGroup, membership, speak, visit, talkToBishop)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
+// Save visitor registration -> registrations table
+app.post('/submit-registration', (req, res) => {
+  const { name, surname, number, address, gender, membership, speak, visit } = req.body;
+  const sql = `INSERT INTO registrations (name, surname, number, address, gender, membership, speak, visit)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
   const values = [
-    date,
-    name,
-    surname,
-    contact,       // number
-    address,
-    contact,
-    gender,
-    ageGroup,
-    membership,
-    speak,
-    visit,
-    talkToBishop
+    name || null,
+    surname || null,
+    number || null,
+    address || null,
+    gender || null,
+    membership || null,
+    speak || null,
+    visit || null
   ];
 
   connection.query(sql, values, (err, result) => {
     if (err) {
-      console.error('Insert error:', err);
-      return res.status(500).send('Database insert failed');
+      console.error('❌ Visitor registration failed:', err);
+      return res.status(500).send('Error saving registration.');
     }
-    res.send('Registration successful!');
+    console.log('✅ Visitor registered.');
+    res.send('Visitor registration successful!');
   });
 });
 
-// Start the server
+// Save membership registration -> members table
+app.post('/submit-membership', (req, res) => {
+  const {
+    full_name, contact, address, status_set, gender, age_group, birthday,
+    occupation, accepted_jesus, baptised, start_attending, hobbies, gifts, role,
+    child1_name, child1_dob, child2_name, child2_dob,
+    child3_name, child3_dob, child4_name, child4_dob,
+    agreement_date, signature
+  } = req.body;
+
+  const sql = `
+    INSERT INTO members (
+      full_name, contact, address, status_set, gender, age_group,
+      birthday, occupation, accepted_jesus, baptised, start_attending,
+      hobbies, gifts, role,
+      child1_name, child1_dob,
+      child2_name, child2_dob,
+      child3_name, child3_dob,
+      child4_name, child4_dob,
+      agreement_date, signature
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+    full_name || null,
+    contact || null,
+    address || null,
+    status_set || null,
+    gender || null,
+    age_group || null,
+    birthday || null,
+    occupation || null,
+    accepted_jesus || null,
+    baptised || null,
+    start_attending || null,
+    hobbies || null,
+    gifts || null,
+    role || null,
+    child1_name || null,
+    child1_dob || null,
+    child2_name || null,
+    child2_dob || null,
+    child3_name || null,
+    child3_dob || null,
+    child4_name || null,
+    child4_dob || null,
+    agreement_date || null,
+    signature || null
+  ];
+
+  connection.execute(sql, values, (err, result) => {
+    if (err) {
+      console.error('❌ Membership registration failed:', err);
+      res.status(500).send('Something went wrong.');
+    } else {
+      res.send('✅ Registration successful!');
+    }
+  });
+});
+
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
